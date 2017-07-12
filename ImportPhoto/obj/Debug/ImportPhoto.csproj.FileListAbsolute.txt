@@ -1,0 +1,14 @@
+D:\project\ImportPhoto\ImportPhoto\bin\Debug\ImportPhoto.exe
+D:\project\ImportPhoto\ImportPhoto\bin\Debug\ImportPhoto.pdb
+D:\project\ImportPhoto\ImportPhoto\obj\Debug\ImportPhoto.Form1.resources
+D:\project\ImportPhoto\ImportPhoto\obj\Debug\ImportPhoto.Properties.Resources.resources
+D:\project\ImportPhoto\ImportPhoto\obj\Debug\ImportPhoto.csproj.GenerateResource.Cache
+D:\project\ImportPhoto\ImportPhoto\obj\Debug\ImportPhoto.exe
+D:\project\ImportPhoto\ImportPhoto\obj\Debug\ImportPhoto.pdb
+D:\project\ImportPhoto\ImportPhoto\bin\Debug\ImportPhoto.exe.config
+D:\project\ImportPhoto\ImportPhoto\bin\Debug\ProgressODoom.dll
+D:\project\ImportPhoto\ImportPhoto\obj\Debug\ImportPhoto.ImportPic.resources
+D:\project\ImportPhoto\ImportPhoto\obj\Debug\ImportPhoto.csprojResolveAssemblyReference.cache
+D:\project\ImportPhoto\ImportPIc\ImportPhoto\bin\Debug\ImportPhoto.exe.config
+D:\project\ImportPhoto\ImportPIc\ImportPhoto\obj\Debug\ImportPhoto.exe
+D:\project\ImportPhoto\ImportPIc\ImportPhoto\obj\Debug\ImportPhoto.pdb

@@ -1,0 +1,10 @@
+Windows Registry Editor Version 5.00
+[HKEY_CLASSES_ROOT\Diff]
+"URL Protocol"="D:\\project\\ImportPhoto\\ImportPhoto\\bin\\Debug\\ImportPhoto.exe"
+@="DiffProtocol"
+[HKEY_CLASSES_ROOT\Diff\DefaultIcon]
+@="D:\\project\\ImportPhoto\\ImportPhoto\\bin\\Debug\\ImportPhoto.exe,1"
+[HKEY_CLASSES_ROOT\Diff\shell]
+[HKEY_CLASSES_ROOT\Diff\shell\open]
+[HKEY_CLASSES_ROOT\Diff\shell\open\command]
+@="\"D:\\project\\ImportPhoto\\ImportPhoto\\bin\\Debug\\ImportPhoto.exe\" \"%1\""

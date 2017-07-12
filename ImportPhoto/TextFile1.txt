@@ -1,0 +1,168 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.IO;
+using System.Collections;
+using System.Threading;
+
+namespace VideoTrans
+{
+    public partial class Form2 : Form
+    {
+        public Form2()
+        {
+            InitializeComponent();
+            LoadListView();
+            this.FormClosed += (sender, e) => {
+                Application.Exit();
+                System.Diagnostics.Process pro = System.Diagnostics.Process.GetCurrentProcess();
+                pro.Kill();
+            };
+        }
+        /// <summary>
+        /// 初始化上传列表
+        /// </summary>
+        void LoadListView()
+        {
+            listView1.View = View.Details;
+            listView1.CheckBoxes = true;
+            listView1.GridLines = true;
+            listView1.Columns.Add("文件名",150,HorizontalAlignment.Center);
+            listView1.Columns.Add("文件大小", 150, HorizontalAlignment.Center);
+            listView1.Columns.Add("文件路径", 150, HorizontalAlignment.Center);
+        }
+        /// <summary>
+        /// 存储目录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if(fbd.ShowDialog()==DialogResult.OK)
+            {
+                textBox1.Text=fbd.SelectedPath;
+            }
+        }
+        /// <summary>
+        /// 打开上传文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = true;
+            if(ofd.ShowDialog()==DialogResult.OK)
+            {
+                foreach(string filename in ofd.FileNames)
+                {
+                    FileInfo fi=new FileInfo(filename);
+                    ListViewItem lvi = new ListViewItem(Path.GetFileNameWithoutExtension(filename));
+                    lvi.Tag = filename;
+                    lvi.SubItems.Add(fi.Length.ToString());
+                    //lvi.SubItems.Add((fi.Length / (1024 * 1024)).ToString() + "M");
+                    lvi.SubItems.Add(Path.GetDirectoryName(filename));
+                    listView1.Items.Add(lvi);
+                }
+                
+            }
+        }
+        public delegate void DeleFile(int position);
+        /// <summary>
+        /// 文件上传
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            if (textBox1.Text.Trim().Equals(""))
+            {
+                MessageBox.Show("请先选择存储目录..!");
+            }
+            else
+            {
+                
+                if (listView1.Items.Count > 0)
+                {
+                    int j = 0;
+                    string count = listView1.CheckedItems.Count.ToString();
+                    for (int i = 0; i < listView1.Items.Count;i++ )
+                    {
+                        
+                        if (listView1.Items[i].Checked)
+                        {
+                            j++;
+                            string fileName = Path.GetFileName(listView1.Items[i].Tag.ToString());
+                            label1.Text = string.Format("正在上传文件:[{0}]", listView1.Items[i].Text) + "：" + j.ToString() + "：" + count;
+                            FileStream des = new FileStream(Path.Combine(textBox1.Text, fileName), FileMode.OpenOrCreate, FileAccess.Write);
+                            FileStream fir = new FileStream(listView1.Items[i].Tag.ToString(), FileMode.Open, FileAccess.Read);
+                            byte[] buffer = new byte[10240];
+                            int size = 0; int ren = 0;
+                            while (ren < fir.Length)
+                            {
+                                Application.DoEvents();
+                                size = fir.Read(buffer,0,buffer.Length);
+                                des.Write(buffer, 0, size);
+                                ren += size;
+                                Pro(ren);
+                            }               
+                            listView1.Items[i].Checked = false;
+                        }
+                        else
+                        {
+                            continue;
+                        }     
+                    }
+                    //MessageBox.Show("上传成功!");
+                }
+                else
+                {
+                    return;
+                }
+            }     
+           
+        }
+        public void Pro(int copy)
+        {
+      
+            if (this.progressBarEx1.InvokeRequired)
+            {
+                this.progressBarEx1.Invoke(new DeleFile(Pro),new object[]{copy});
+                return;
+            }
+            foreach (ListViewItem lvi in listView1.CheckedItems)
+            {
+                string total = lvi.SubItems[1].Text;
+                int pro = (int)((float)copy / long.Parse(total) * 100);
+                if (pro <= progressBarEx1.Maximum)
+                {
+                    progressBarEx1.Value = pro;
+                    progressBarEx1.Text = label1.Text.Split('：')[0].ToString() + Environment.NewLine + string.Format("上传进度:{0}%", pro) + Environment.NewLine + string.Format("已上传文件数：{0}/{1}", label1.Text.Split('：')[1].ToString(), label1.Text.Split('：')[2].ToString());
+                    
+                }
+            }
+            
+        }
+        /// <summary>
+        /// 删除文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button4_Click(object sender, EventArgs e)
+        {
+            foreach(ListViewItem lvi in listView1.CheckedItems)
+            {
+                lvi.Remove();
+            }
+        }
+      
+    }
+}
