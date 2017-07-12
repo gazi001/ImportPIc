@@ -154,6 +154,7 @@ namespace ImportPhoto
                                 if (result == "ok")
                                 {
                                     listView1.Items[i].Checked = false;
+                                    listView1.Items[i].SubItems[3].Text = "导入成功";
                                 }
                                 if (result == "exist")
                                 {
