@@ -35,6 +35,7 @@
             this.btnUploadFile = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnDelPhotoes = new System.Windows.Forms.Button();
+            this.btnSelectAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listView1
@@ -100,11 +101,22 @@
             this.btnDelPhotoes.UseVisualStyleBackColor = true;
             this.btnDelPhotoes.Click += new System.EventHandler(this.btnDelPhotoes_Click);
             // 
+            // btnSelectAll
+            // 
+            this.btnSelectAll.Location = new System.Drawing.Point(446, 147);
+            this.btnSelectAll.Name = "btnSelectAll";
+            this.btnSelectAll.Size = new System.Drawing.Size(75, 23);
+            this.btnSelectAll.TabIndex = 8;
+            this.btnSelectAll.Text = "全选";
+            this.btnSelectAll.UseVisualStyleBackColor = true;
+            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
+            // 
             // ImportPic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(536, 365);
+            this.ClientSize = new System.Drawing.Size(560, 412);
+            this.Controls.Add(this.btnSelectAll);
             this.Controls.Add(this.btnDelPhotoes);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnUploadFile);
@@ -128,5 +140,6 @@
         private System.Windows.Forms.Button btnUploadFile;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnDelPhotoes;
+        private System.Windows.Forms.Button btnSelectAll;
     }
 }

@@ -16,12 +16,13 @@ namespace ImportPhoto
 {
     public partial class ImportPic : Form
     {
-        
+
         string OrderCode;
         public ImportPic()
         {
             InitializeComponent();
             LoadListView();
+            this.OrderCode = "20170712";
             this.FormClosed += (sender, e) =>
             {
                 Application.Exit();
@@ -33,15 +34,15 @@ namespace ImportPhoto
         {
             InitializeComponent();
             LoadListView();
-           
+
             this.OrderCode = args[0].ToString().Substring(5);
-           //MessageBox.Show(this.OrderCode);
+            //MessageBox.Show(this.OrderCode);
             this.FormClosed += (sender, e) =>
             {
                 Application.Exit();
                 System.Diagnostics.Process pro = System.Diagnostics.Process.GetCurrentProcess();
                 pro.Kill();
-                
+
             };
         }
         /// <summary>
@@ -60,7 +61,6 @@ namespace ImportPhoto
         public delegate void DeleFile(int position);
         //public void Pro(int copy)
         //{
-
         //    if (this.progressBarEx1.InvokeRequired)
         //    {
         //        this.progressBarEx1.Invoke(new DeleFile(Pro), new object[] { copy });
@@ -93,7 +93,7 @@ namespace ImportPhoto
                 {
                     Directory.CreateDirectory(fbd.SelectedPath + "\\" + OrderCode);
                 }
-                textBox1.Text = fbd.SelectedPath+"\\"+OrderCode;
+                textBox1.Text = fbd.SelectedPath + "\\" + OrderCode;
             }
         }
         /// <summary>
@@ -151,6 +151,7 @@ namespace ImportPhoto
                                 label1.Text = string.Format("正在上传文件:[{0}]", listView1.Items[i].Text) + "：" + j.ToString() + "/" + count;
                                 System.IO.File.Copy(listView1.Items[i].Tag.ToString(), Path.Combine(textBox1.Text, fileName), true);
                                 var result = SavePath(fileName, Path.Combine(textBox1.Text, fileName), OrderCode);
+                                //Pro(j);
                                 if (result == "ok")
                                 {
                                     listView1.Items[i].Checked = false;
@@ -168,10 +169,9 @@ namespace ImportPhoto
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("出现错误请重新保存~");
-                            
+                            MessageBox.Show(ex + "~");
                         }
-                       
+
                     }
                     MessageBox.Show("上传成功!");
                 }
@@ -179,19 +179,19 @@ namespace ImportPhoto
                 {
                     return;
                 }
-            }     
+            }
         }
         public string SavePath(string fileName, string path, string ordercode)
         {
-            string strURL = "http://localhost:15964/ashx/image/SaveImagePath.ashx";
+            string strURL = "http://183.134.78.209:8088//ashx/image/SaveImagePath.ashx";
 
             var request = (System.Net.HttpWebRequest)WebRequest.Create(strURL);
             request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            
+            request.ContentType = "application/x-www-form-urlencoded;charset=UTF-8";
+
             string param = "filename=" + fileName + "&path=" + Path.Combine(textBox1.Text, fileName) + "&ordercode=" + OrderCode;
             ASCIIEncoding encoding = new ASCIIEncoding();
-            
+
             byte[] data = encoding.GetBytes(param);
             request.ContentLength = data.Length;
             System.IO.Stream stream = request.GetRequestStream();
@@ -204,7 +204,7 @@ namespace ImportPhoto
             streamReader.Close();
 
             return responseText;
- 
+
         }
         /// <summary>
         /// 删除文件
@@ -218,6 +218,23 @@ namespace ImportPhoto
                 lvi.Remove();
             }
         }
+
+        private void btnSelectAll_Click(object sender, EventArgs e)
+        {
+            if (listView1.Items.Count > 0)
+            {
+                int j = 0;
+                string count = listView1.CheckedItems.Count.ToString();
+                for (int i = 0; i < listView1.Items.Count; i++)
+                {
+                    listView1.Items[i].Checked = true;
+                }
+            }
+        }
     }
 
 }
+
+
+
+

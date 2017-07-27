@@ -18,3 +18,4 @@ D:\project\ImportPhoto\ImportPIc\ImportPhoto\obj\Debug\ImportPhoto.Form1.resourc
 D:\project\ImportPhoto\ImportPIc\ImportPhoto\obj\Debug\ImportPhoto.ImportPic.resources
 D:\project\ImportPhoto\ImportPIc\ImportPhoto\obj\Debug\ImportPhoto.Properties.Resources.resources
 D:\project\ImportPhoto\ImportPIc\ImportPhoto\obj\Debug\ImportPhoto.csproj.GenerateResource.Cache
+D:\project\ImportPhoto\ImportPIc\ImportPhoto\obj\Debug\ImportPhoto.csprojResolveAssemblyReference.cache
